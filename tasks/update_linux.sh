@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export SECURITY="$PT_security"
 export PACKAGES="$PT_names"
 export RESULT_FILE="$PT_result_file"
 export LOG_FILE="$PT_log_file"

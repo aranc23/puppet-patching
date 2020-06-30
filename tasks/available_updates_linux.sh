@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export SECURITY="$PT_security"
+
 # Run our OS tests, export OS_RELEASE
 source "${PT__installdir}/patching/files/bash/os_test.sh"
 

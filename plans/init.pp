@@ -112,6 +112,7 @@
 plan patching (
   TargetSpec        $targets,
   Boolean           $filter_offline_targets = false,
+  Boolean           $security = false,
   Optional[Boolean] $monitoring_enabled   = undef,
   Optional[String]  $monitoring_plan      = undef,
   Optional[String]  $pre_update_plan      = undef,
@@ -205,6 +206,7 @@ plan patching (
     $available_results = run_plan('patching::available_updates', $ordered_targets,
                                   provider => $update_provider_group,
                                   format   => 'pretty',
+                                  security => $security,
                                   noop     => $noop)
     $update_targets = $available_results['has_updates']
     if $update_targets.empty {
@@ -233,6 +235,7 @@ plan patching (
     $update_result = run_task('patching::update', $update_targets,
                               provider       => $update_provider_group,
                               _catch_errors  => true,
+                              security       => $security,
                               _noop          => $noop)
 
     ## Collect list of successful updates

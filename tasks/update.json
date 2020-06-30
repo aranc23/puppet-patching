@@ -33,6 +33,10 @@
     "log_file": {
       "description": "Log file for OS specific output during the patching process. This file will contain OS specific (RHEL/CentOS = yum history, Debian/Ubuntu = /var/log/apt/history.log, Windows = ??) data that this task used to generate its output. If no script name is passed on Linux hosts a default is used: /var/log/patching.log. If no script name is passed  on Windows hosts a default is used: C:/ProgramData/patching/log/patching.log",
       "type": "Optional[String[1]]"
+    },
+    "security": {
+      "description": "pass --security to yum",
+      "type": "Optional[Boolean]"
     }
   }
 }

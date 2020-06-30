@@ -53,11 +53,13 @@ plan patching::available_updates (
   TargetSpec $targets,
   # TODO JSON
   Enum['none', 'pretty', 'csv'] $format   = 'pretty',
+  Boolean                       $security = false,
   Boolean                       $noop     = false,
   Optional[String]              $provider = undef,
 ) {
   $available_results = run_task('patching::available_updates', $targets,
                                 provider => $provider,
+                                security => $security,
                                 _noop    => $noop)
   case $format {
     'none': {

@@ -75,7 +75,10 @@ STATUS=0
 # from the $PIPESTATUS array to get access to the `yum` command's return value.
 # Now, the exit status for the $() will be whatever the exit status is for `yum` instead
 # of the exit status of `tee`.
-YUM_UPDATE=$(yum -y update $PACKAGES | tee -a "$LOG_FILE"; exit ${PIPESTATUS[0]})
+if [[ $SECURITY == "true" ]]; then
+  OPTS="--security"
+fi
+YUM_UPDATE=$(yum -y $OPTS update $PACKAGES | tee -a "$LOG_FILE"; exit ${PIPESTATUS[0]})
 STATUS=$?
 
 # check if packages were updated or not
