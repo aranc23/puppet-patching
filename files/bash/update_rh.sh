@@ -75,6 +75,10 @@ STATUS=0
 # from the $PIPESTATUS array to get access to the `yum` command's return value.
 # Now, the exit status for the $() will be whatever the exit status is for `yum` instead
 # of the exit status of `tee`.
+OPTS=''
+if [[ "${PT_exclude}X" != "X" ]]; then
+   OPTS=$( echo ",${PT_exclude}" | sed -e 's/,/ --exclude /g' )
+fi
 if [[ $SECURITY == "true" ]]; then
   OPTS="--security"
 fi

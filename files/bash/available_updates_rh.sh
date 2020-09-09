@@ -6,10 +6,15 @@
 # Security: kernel-3.14.2-200.fc20.x86_64 is the currently running version
 # ---
 # We need to filter those out as they screw up the package listing
-if [[ $SECURITY == "true" ]]; then
-  OPTS="--security"
+OPTS=''
+if [[ "${PT_exclude}X" != "X" ]]; then
+   OPTS=$( echo ",${PT_exclude}" | sed -e 's/,/ --exclude /g' )
 fi
-PKGS=$(yum -q $OPTS check-update 2>/dev/null | egrep -v "is broken|^Security:|^Loaded plugins" | awk '/^[[:alnum:]]/ {print $0}' | sort)
+if [[ $SECURITY == "true" ]]; then
+  OPTS="${OPTS} --security"
+fi
+
+PKGS=$(yum -q $OPTS check-update 2>/dev/null | sed -e '/Obsoleting Packages/q' | egrep -v "is broken|^Security:|^Loaded plugins|^Obsoleting Packages" | awk '/^[[:alnum:]]/ {print $0}' | sort)
 cat <<EOF
 {
   "updates": [

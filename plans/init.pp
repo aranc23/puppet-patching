@@ -112,6 +112,7 @@
 plan patching (
   TargetSpec        $targets,
   Boolean           $filter_offline_targets = false,
+  Optional[String]  $exclude = '',
   Boolean           $security = false,
   Optional[Boolean] $monitoring_enabled   = undef,
   Optional[String]  $monitoring_plan      = undef,
@@ -207,6 +208,7 @@ plan patching (
                                   provider => $update_provider_group,
                                   format   => 'pretty',
                                   security => $security,
+                                  exclude  => $exclude,
                                   noop     => $noop)
     $update_targets = $available_results['has_updates']
     if $update_targets.empty {
@@ -236,6 +238,7 @@ plan patching (
                               provider       => $update_provider_group,
                               _catch_errors  => true,
                               security       => $security,
+                              exclude        => $exclude,
                               _noop          => $noop)
 
     ## Collect list of successful updates

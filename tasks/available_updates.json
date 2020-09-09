@@ -26,6 +26,10 @@
     "security": {
       "description": "pass --security to yum",
       "type": "Optional[Boolean]"
+    },
+    "exclude": {
+      "description": "pass --exclude repeatedly to yum",
+      "type": "Optional[String]"
     }
   }
 }
